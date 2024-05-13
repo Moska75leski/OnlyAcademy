@@ -1,0 +1,234 @@
+import React from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
+
+const UserProfileScreen = () => {
+  return (
+    <LinearGradient
+      colors={["#ff8c00", "#fffb00"]} // Cores do degradê
+      style={styles.container}
+    >
+      <Image
+        source={require("./assets/everton.jpg")}
+        style={styles.userPhoto}
+      />
+      <View style={styles.userInfoContainer}>
+        <Text style={styles.userName}>@evertonmoscaleski</Text>
+        <Text style={styles.userDescription}>
+          Estudante de Engenharia de Software
+        </Text>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity style={styles.button}>
+            <Text>Seguindo</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button}>
+            <Text>Mensagem</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity style={styles.button}>
+            <Text>Todas as Fotos</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button}>
+            <Text>Todos os Vídeos</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+      <ScrollView style={styles.photoContainer}>
+        <View style={[styles.row, styles.center]}>
+          <Image
+            source={require("./assets/corrida.jpg")}
+            style={styles.photo}
+          />
+          <Image
+            source={require("./assets/corridab.jpg")}
+            style={styles.photo}
+          />
+        </View>
+        <View style={[styles.row, styles.center]}>
+          <Image
+            source={require("./assets/corridac.jpg")}
+            style={styles.photo}
+          />
+          <Image
+            source={require("./assets/corridad.jpg")}
+            style={styles.photo}
+          />
+        </View>
+      </ScrollView>
+    </LinearGradient>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  userPhoto: {
+    width: 200,
+    height: 200,
+    borderRadius: 100, // Para tornar a foto circular
+    alignSelf: "center",
+    marginTop: 50,
+  },
+  userName: {
+    alignSelf: "center",
+    marginTop: 20,
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  userDescription: {
+    alignSelf: "center",
+    marginTop: 10,
+    fontSize: 16,
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    marginTop: 10,
+    borderRadius: 35,
+  },
+  button: {
+    backgroundColor: "#ddd", // Cor dos botões
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 35,
+    shadowColor: '#000',
+    shadowOffset: { width: 10, height: 50 }, // Deslocamento da sombra
+    shadowOpacity: 0.5, // Opacidade da sombra
+    shadowRadius: 2, // Raio da sombra
+    elevation: 5, // Elevação para dispositivos Android
+    marginHorizontal: 10,
+    width: '45%',
+    alignItems: 'center'
+  },
+  userInfoContainer: {
+    backgroundColor: "rgba(255, 255, 255, 0.8)", // Cor de fundo com transparência
+    borderRadius: 30, // Raio da borda
+    padding: 10, // Espaçamento interno
+    marginBottom: 10, // Espaçamento inferior para separar do container
+  },
+  photoContainer: {
+    borderWidth: 1, // Largura da borda
+    borderColor: "#ccc", // Cor da borda
+    borderRadius: 35, // Raio da borda
+    backgroundColor: "rgba(255, 255, 255, 0.8)", // Cor de fundo com transparência
+    padding: 10, // Espaçamento interno
+    marginBottom: 10, // Espaçamento inferior para separar do container
+  },
+  row: {
+    flexDirection: "row",
+    alignSelf: 'center',
+    padding: 12
+  },
+  center: {
+    alignItems: "center",
+  },
+  photo: {
+    width: 100,
+    height: 100,
+    borderRadius: 10,
+    marginHorizontal: 10,
+  },
+});
+
+export default UserProfileScreen;
+
+
+
+
+
+
+
+
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+NAVIGATION 
+
+
+import React from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
+import { PlayerScreen } from './screens/Player';
+
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+function HomeScreen({ navigation }) {
+  return (
+    <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1, }}>
+      <Text>
+        Hi I'm your home
+      </Text>
+      {[1,2,3,4,5].map((item) => {
+        return (
+          <TouchableOpacity
+            key={item}
+            onPress={() => {
+              navigation.navigate('PlayerScreen')
+            }}
+          >
+            <Text>
+              Podcast: 0{item}
+            </Text>
+          </TouchableOpacity>
+        )
+      })}
+    </View>
+  )
+}
+
+function DiscoverScreen() {
+  return (
+    <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1, }}>
+      <Text>
+        Hi I'm your discover screen
+      </Text>
+    </View>
+  )
+}
+
+// ===============================================================
+// ===============================================================
+// ===============================================================
+
+const PodcastsStack = createStackNavigator();
+
+function PodcastsTabStack() {
+  return (
+    <PodcastsStack.Navigator>
+      <PodcastsStack.Screen name="HomeScreen" component={HomeScreen} />
+      <PodcastsStack.Screen name="PlayerScreen" component={PlayerScreen} />
+    </PodcastsStack.Navigator>
+  );
+}
+
+const Tab = createBottomTabNavigator();
+function MyTabs() {
+  return (
+    <Tab.Navigator>
+      <Tab.Screen name="PodcastsTabStack" component={PodcastsTabStack} />
+      <Tab.Screen name="DiscoverScreen" component={DiscoverScreen} />
+    </Tab.Navigator>
+  );
+}
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <MyTabs />
+    </NavigationContainer>
+  );
+}
+
+// export default function App() {
+//   return (
+//     <PlayerScreen />
+//   );
+// }
