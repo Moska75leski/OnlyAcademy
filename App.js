@@ -1,4 +1,3 @@
-// src/App.js
 import React from "react";
 import { View, StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
@@ -6,6 +5,9 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import HomeScreen from "./pages/HomeScreen";
 import ChatScreen from "./pages/ChatScreen";
+//import MessageScreen from "./pages/MessageScreen";
+import ExploreScreen from "./pages/ExploreScreen";
+import CameraScreen from "./pages/CameraScreen";
 
 const Stack = createStackNavigator();
 
@@ -17,6 +19,9 @@ const App = () => {
           <Stack.Navigator initialRouteName="Home">
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="Chat" component={ChatScreen} />
+            {/*<Stack.Screen name="Message" component={MessageScreen} />*/}
+            <Stack.Screen name="Explore" component={ExploreScreen} />
+            <Stack.Screen name="Camera" component={CameraScreen} />
           </Stack.Navigator>
         </View>
       </View>
