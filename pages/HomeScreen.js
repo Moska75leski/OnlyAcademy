@@ -22,9 +22,19 @@ const HomeScreen = () => {
   const navigateToChatScreen = () => {
     navigation.navigate("Chat");
   };
+  //const navigateToMessageScreen = () => {
+  //  navigation.navigate("Message");
+  //};
+
+  const navigateToExploreScreen = () => {
+    navigation.navigate("Explore");
+  };
+  const navigateToCameraScreen = () => {
+    navigation.navigate("Camera");
+  };
 
   return (
-    <LinearGradient colors={["#ff8c00", "#fffb00"]} style={styles.container}>
+    <LinearGradient colors={["#ccc", "#5599"]} style={styles.container}>
       <Image source={require("./img/everton.jpg")} style={styles.foto} />
       <View style={styles.descricao}>
         <Text style={styles.nomeUsuario}>@evertonmoscaleski</Text>
@@ -34,11 +44,29 @@ const HomeScreen = () => {
       </View>
       <View style={styles.container}>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            onPress={navigateToChatScreen}
-            style={[styles.button, { marginRight: 20 }]}
+          {/*<TouchableOpacity
+            onPress={navigateToMessageScreen}
+            style={[styles.button, { marginRight: 10 }]}
           >
             <Text style={styles.buttonText}>Message</Text>
+          </TouchableOpacity>*/}
+          <TouchableOpacity
+            onPress={navigateToCameraScreen}
+            style={[styles.button, { marginRight: 10 }]}
+          >
+            <Text style={styles.buttonText}>Camera</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={navigateToExploreScreen}
+            style={[styles.button, { marginRight: 10 }]}
+          >
+            <Text style={styles.buttonText}>Explore</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={navigateToChatScreen}
+            style={[styles.button, { marginRight: 10 }]}
+          >
+            <Text style={styles.buttonText}>Chat</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={toggleFollow}
@@ -92,13 +120,14 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: "row",
     justifyContent: "center",
+    marginTop: 20,
     paddingBottom: 30,
   },
   button: {
     backgroundColor: "#fff",
-    borderRadius: 180,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
+    borderRadius: 150,
+    paddingVertical: 5,
+    paddingHorizontal: 5,
   },
   buttonText: {
     color: "#000",
@@ -119,6 +148,8 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     alignSelf: "center",
     marginTop: 10,
+    borderColor: "#f0f8ff",
+    borderWidth: 5,
   },
   descricao: {
     alignSelf: "center",
@@ -135,7 +166,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     width: 100,
     height: 100,
-    borderRadius: 100,
+    borderRadius: 80,
   },
   center: {
     justifyContent: "center",
@@ -145,6 +176,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     marginBottom: 10,
+    borderColor: "#ccc",
+    borderWidth: 5,
+    borderRadius: 10,
   },
 });
 
