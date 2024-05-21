@@ -7,6 +7,7 @@ import {
   Text,
   Image,
   ScrollView,
+  ImageBackground,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
@@ -22,9 +23,6 @@ const HomeScreen = () => {
   const navigateToChatScreen = () => {
     navigation.navigate("Chat");
   };
-  //const navigateToMessageScreen = () => {
-  //  navigation.navigate("Message");
-  //};
 
   const navigateToExploreScreen = () => {
     navigation.navigate("Explore");
@@ -33,8 +31,20 @@ const HomeScreen = () => {
     navigation.navigate("Camera");
   };
 
+  const navigateToPayMensalScreen = () => {
+    navigation.navigate("PayMensal");
+  };
+
+  const navigateToPayAnualScreen = () => {
+    navigation.navigate("PayAnual");
+  };
+
   return (
-    <LinearGradient colors={["#ccc", "#5599"]} style={styles.container}>
+    <ImageBackground
+      source={require("./img/fundo.jpg")}
+      style={styles.background}
+    >
+      {/*<LinearGradient colors={["#ccc", "#5599"]} style={styles.container}>*/}
       <Image source={require("./img/everton.jpg")} style={styles.foto} />
       <View style={styles.descricao}>
         <Text style={styles.nomeUsuario}>@evertonmoscaleski</Text>
@@ -44,12 +54,6 @@ const HomeScreen = () => {
       </View>
       <View style={styles.container}>
         <View style={styles.buttonContainer}>
-          {/*<TouchableOpacity
-            onPress={navigateToMessageScreen}
-            style={[styles.button, { marginRight: 10 }]}
-          >
-            <Text style={styles.buttonText}>Message</Text>
-          </TouchableOpacity>*/}
           <TouchableOpacity
             onPress={navigateToCameraScreen}
             style={[styles.button, { marginRight: 10 }]}
@@ -80,9 +84,22 @@ const HomeScreen = () => {
             </Text>
           </TouchableOpacity>
         </View>
+        <View style={styles.subscriptionContainer}>
+          <TouchableOpacity
+            onPress={navigateToPayMensalScreen}
+            style={[styles.subscriptionButton, { marginBottom: 10 }]}
+          >
+            <Text style={styles.subscriptionButtonText}>Pagamento Mensal</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={navigateToPayAnualScreen}
+            style={styles.subscriptionButton}
+          >
+            <Text style={styles.subscriptionButtonText}>Pagamento Anual</Text>
+          </TouchableOpacity>
+        </View>
         <ScrollView contentContainerStyle={styles.scrollViewContent}>
           <View style={[styles.row, styles.center]}>
-            {/* Primeira linha */}
             <View style={styles.imageRow}>
               <Image
                 source={require("./img/corrida.jpg")}
@@ -93,7 +110,6 @@ const HomeScreen = () => {
                 style={styles.fotoContainer}
               />
             </View>
-            {/* Segunda linha */}
             <View style={styles.imageRow}>
               <Image
                 source={require("./img/Moska.jpg")}
@@ -107,7 +123,8 @@ const HomeScreen = () => {
           </View>
         </ScrollView>
       </View>
-    </LinearGradient>
+      {/*</LinearGradient>*/}
+    </ImageBackground>
   );
 };
 
@@ -176,9 +193,23 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     marginBottom: 10,
-    borderColor: "#ccc",
-    borderWidth: 5,
-    borderRadius: 10,
+  },
+  subscriptionContainer: {
+    marginTop: 20,
+    alignItems: "center",
+  },
+  subscriptionButton: {
+    backgroundColor: "#fff",
+    borderRadius: 150,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginVertical: 5,
+  },
+  subscriptionButtonText: {
+    color: "#000",
+    fontWeight: "bold",
+    fontSize: 16,
+    textAlign: "center",
   },
 });
 

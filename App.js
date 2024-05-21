@@ -8,6 +8,8 @@ import ChatScreen from "./pages/ChatScreen";
 //import MessageScreen from "./pages/MessageScreen";
 import ExploreScreen from "./pages/ExploreScreen";
 import CameraScreen from "./pages/CameraScreen";
+import PayAnualScreen from "./pages/PayAnualScreen";
+import PayMensalScreen from "./pages/PayMensalScreen";
 
 const Stack = createStackNavigator();
 
@@ -22,6 +24,8 @@ const App = () => {
             {/*<Stack.Screen name="Message" component={MessageScreen} />*/}
             <Stack.Screen name="Explore" component={ExploreScreen} />
             <Stack.Screen name="Camera" component={CameraScreen} />
+            <Stack.Screen name="PayMensal" component={PayMensalScreen} />
+            <Stack.Screen name="PayAnual" component={PayAnualScreen} />
           </Stack.Navigator>
         </View>
       </View>

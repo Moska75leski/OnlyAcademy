@@ -7,6 +7,7 @@ import {
   Image,
   TouchableOpacity,
   FlatList,
+  ImageBackground,
 } from "react-native";
 
 import Lista from "./Lista/index";
@@ -79,22 +80,27 @@ class ExploreScreen extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <View style={styles.header}>
-          {/*<TouchableOpacity>
+      <ImageBackground
+        source={require("./img/fundo.jpg")}
+        style={styles.background}
+      >
+        <View style={styles.container}>
+          <View style={styles.header}>
+            {/*<TouchableOpacity>
             <Image source={require("./img/logo.png")} style={styles.logo} />
           </TouchableOpacity>*/}
-          <TouchableOpacity>
-            <Image source={require("./img/send.png")} style={styles.send} />
-          </TouchableOpacity>
-        </View>
+            <TouchableOpacity>
+              <Image source={require("./img/send.png")} style={styles.send} />
+            </TouchableOpacity>
+          </View>
 
-        <FlatList
-          showsHorizontalScrollIndicator={false}
-          data={this.state.feed}
-          renderItem={({ item }) => <Lista data={item} />}
-        />
-      </View>
+          <FlatList
+            showsHorizontalScrollIndicator={false}
+            data={this.state.feed}
+            renderItem={({ item }) => <Lista data={item} />}
+          />
+        </View>
+      </ImageBackground>
     );
   }
 }
