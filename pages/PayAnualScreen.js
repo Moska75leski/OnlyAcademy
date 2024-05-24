@@ -39,21 +39,26 @@ const PayAnualScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    //justifyContent: "center",
     alignItems: "center",
     padding: 20,
+  },
+  background: {
+    height: "100%",
   },
   title: {
     fontSize: 24,
     marginBottom: 20,
   },
   input: {
-    width: "100%",
+    width: "70%",
     height: 40,
     borderColor: "#ccc",
     borderWidth: 1,
     marginBottom: 20,
     paddingLeft: 10,
+    backgroundColor: "#fff",
+    borderRadius: 150,
   },
   button: {
     backgroundColor: "#fff",
