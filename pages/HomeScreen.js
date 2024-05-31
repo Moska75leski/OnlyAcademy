@@ -202,7 +202,7 @@ const styles = StyleSheet.create({
   subscriptionContainer: {
     alignItems: "center",
     flexDirection: "row",
-    paddingBottom: 30,
+    paddingBottom: 20,
     marginHorizontal: 10,
     marginVertical: 10,
   },
@@ -212,6 +212,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 10,
     marginVertical: 10,
+    marginHorizontal: 5,
   },
   subscriptionButtonText: {
     color: "#000",
