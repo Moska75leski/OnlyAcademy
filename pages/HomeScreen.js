@@ -9,12 +9,48 @@ import {
   ScrollView,
   ImageBackground,
 } from "react-native";
+import * as ImagePicker from "expo-image-picker";
 import { useNavigation } from "@react-navigation/native";
-import { LinearGradient } from "expo-linear-gradient";
+import { createClient } from "@supabase/supabase-js";
+
+// Configuração do cliente Supabase
+const supabaseUrl = "https://your-supabase-url.supabase.co";
+const supabaseKey = "your-anon-or-service-key";
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+// Função para fazer o upload da imagem
+async function uploadImage(file) {
+  const { data, error } = await supabase.storage
+    .from("user-images")
+    .upload(`public/${file.name}`, file);
+
+  if (error) {
+    console.error("Error uploading image:", error);
+    return null;
+  }
+
+  return data;
+}
+
+// Função para obter a URL pública da imagem
+function getPublicUrl(filePath) {
+  const { publicURL, error } = supabase.storage
+    .from("user-images")
+    .getPublicUrl(filePath);
+
+  if (error) {
+    console.error("Error getting public URL:", error);
+    return null;
+  }
+
+  return publicURL;
+}
 
 const HomeScreen = () => {
   const navigation = useNavigation();
   const [isFollowActive, setFollowActive] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [imageUrl, setImageUrl] = useState(null);
 
   const toggleFollow = () => {
     setFollowActive(!isFollowActive);
@@ -37,6 +73,36 @@ const HomeScreen = () => {
 
   const navigateToPayAnualScreen = () => {
     navigation.navigate("PayAnual");
+  };
+
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setSelectedImage(result.assets[0]);
+    }
+  };
+
+  const handleUploadImage = async () => {
+    if (selectedImage) {
+      const response = await fetch(selectedImage.uri);
+      const blob = await response.blob();
+      const file = new File([blob], selectedImage.uri.split("/").pop(), {
+        type: blob.type,
+      });
+      const uploadResult = await uploadImage(file);
+
+      if (uploadResult) {
+        const publicUrl = getPublicUrl(uploadResult.path);
+        setImageUrl(publicUrl);
+        console.log("Image URL:", publicUrl);
+      }
+    }
   };
 
   return (
@@ -122,6 +188,23 @@ const HomeScreen = () => {
             </View>
           </View>
         </ScrollView>
+      </View>
+      <View style={styles.uploadContainer}>
+        <Button title="Escolher Imagem" onPress={pickImage} />
+        {selectedImage && (
+          <View>
+            <Image
+              source={{ uri: selectedImage.uri }}
+              style={styles.previewImage}
+            />
+            <Button title="Upload Imagem" onPress={handleUploadImage} />
+          </View>
+        )}
+        {imageUrl && (
+          <View>
+            <Text>Image URL: {imageUrl}</Text>
+          </View>
+        )}
       </View>
       {/*</LinearGradient>*/}
     </ImageBackground>
@@ -219,6 +302,16 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 16,
     textAlign: "center",
+  },
+  uploadContainer: {
+    alignItems: "center",
+    marginTop: 20,
+  },
+  previewImage: {
+    width: 200,
+    height: 200,
+    resizeMode: "cover",
+    marginVertical: 10,
   },
 });
 
